@@ -26,9 +26,9 @@ def sanitization(web):                      # tokenizing method
         token.remove('com')                 # remove com
     return token
 
-urls = ['hackthebox.eu','www.pakistanifacebook.com','stackoverflow.com','facebook.com']#,'google.com/search=VAD3R','wikipedia.co.uk'
+urls = ['root-me.org','hackthebox.eu','www.pakistanifacebook.com','stackoverflow.com','facebook.com']#,'google.com/search=VAD3R','wikipedia.co.uk'
 
-whitelist = ['hackthebox.eu']
+whitelist = ['hackthebox.eu','root-me.org']
 s_url = [i for i in urls if i not in whitelist]
 # better to implement whitelist filter here than BL since our
 # model figures out the bad urls with good accuracy then the good ones :)
@@ -45,9 +45,12 @@ vectorizer = vectorizer
 x = vectorizer.transform(s_url)
 #score = lgr.score(x_test, y_test)
 y_predict = lgr.predict(x)
-s_url.append(whitelist[0])
+
+for site in whitelist:
+    s_url.append(site)
 print(s_url)
 predict = list(y_predict)
-predict.append('good')
+for j in range(0,len(whitelist)):
+    predict.append('good')
 print(predict)
 
